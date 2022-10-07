@@ -1,4 +1,4 @@
-import injector
+from dependency_injector import containers, providers
 
 from text_ocr.application.use_cases import (
     TextRecognition,
@@ -27,8 +27,10 @@ __all__ = [
 ]
 
 
-class TextOCR(injector.Module):
+class TextOCRContainer(containers.DeclarativeContainer):
 
-    @injector.provider
-    def text_recognition_uc(self, boundary: TextRecognitionOutputBoundary) -> TextRecognition:
-        return TextRecognition(boundary)
+    text_recognition_output_boundary = providers.Factory(TextRecognitionOutputBoundary)
+    text_recognition_uc = providers.Singleton(
+        TextRecognition,
+        output_boundary=text_recognition_output_boundary
+    )
