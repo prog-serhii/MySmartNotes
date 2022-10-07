@@ -19,7 +19,7 @@ class TextRecognitionOutputDto:
 
 class TextRecognitionOutputBoundary(abc.ABC):
     
-    @abc.abstractclassmethod
+    @abc.abstractmethod
     def present(self, output_dto: TextRecognitionOutputDto) -> None:
         pass
 

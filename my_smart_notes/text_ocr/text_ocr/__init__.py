@@ -26,6 +26,7 @@ __all__ = [
     'TextRecognitionOutputDto'
 ]
 
+
 class TextOCR(injector.Module):
 
     @injector.provider
