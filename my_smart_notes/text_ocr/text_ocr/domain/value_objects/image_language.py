@@ -1,10 +1,10 @@
-from enum import Enum, auto
+from enum import Enum
 
 
-class ImageLanguage(Enum):
+class ImageLanguage(str, Enum):
 
-    AUTO = auto()
-    UA = auto()
-    EN = auto()
-    PL = auto()
-    RU = auto()
+    AUTO = 'auto'
+    UA = 'ua'
+    EN = 'en'
+    PL = 'pl'
+    RU = 'ru'

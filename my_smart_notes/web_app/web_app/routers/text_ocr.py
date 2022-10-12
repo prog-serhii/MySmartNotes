@@ -1,19 +1,29 @@
 import io
 
-from fastapi import APIRouter, UploadFile, File
+from fastapi import APIRouter, UploadFile, File, Depends, Form
+from dependency_injector.wiring import inject, Provide
+
+from text_ocr import (
+    TextRecognition, TextRecognitionOutputBoundary, TextRecognitionInputDto, TextRecognitionOutputDto, ImageLanguage
+)
+from main import ApplicationContainer
 
 
 router = APIRouter()
 
 
 @router.post('/text_ocr/')
-async def text_ocr(file: UploadFile = File(...)):
-    # UPLOAD_DIR.mkdir(exist_ok=True)
+@inject
+async def text_ocr(
+    file: UploadFile = File(...),
+    language: ImageLanguage = Form(),
+    text_recognition_uc: TextRecognition = Depends(Provide[ApplicationContainer.text_ocr_package.text_recognition_uc]),
+    presenter: TextRecognitionOutputBoundary = Depends(
+        Provide[ApplicationContainer.text_ocr_package.text_recognition_output_boundary]
+    )
+):
     bytes_str = io.BytesIO(await file.read())
-    try:
-        img = Image.open(bytes_str)
-    except:
-        raise HTTPException(detail='Invalid image', status_code=400)
-    preds = pytesseract.image_to_string(img)
+    input_dto = TextRecognitionInputDto(bytes_str, language)
 
-    return {'result': preds}
+    text_recognition_uc.execute(input_dto)
+    return presenter.response  # type: ignore

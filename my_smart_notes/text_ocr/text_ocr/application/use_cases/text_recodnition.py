@@ -31,5 +31,12 @@ class TextRecognition:
     
     def execute(self, input_dto: TextRecognitionInputDto) -> None:
         # TODO: text recognition
+
+        # try:
+        #     img = Image.open(bytes_str)
+        # except:
+        #     raise HTTPException(detail='Invalid image', status_code=400)
+        # preds = pytesseract.image_to_string(img)
+
         output_dto = TextRecognitionOutputDto(text='Some text')
         self._output_boundary.present(output_dto)

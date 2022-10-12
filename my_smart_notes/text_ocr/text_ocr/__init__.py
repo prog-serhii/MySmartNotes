@@ -12,14 +12,14 @@ from text_ocr.domain.value_objects import (
 )
 
 __all__ = [
-    # module
-    'TextOCR',
+    # container
+    'TextOCRContainer',
     # value objects
     'Image',
     'ImageLanguage',
     # use cases
     'TextRecognition',
-    'TextRecognitionOutputBoundary'
+    'TextRecognitionOutputBoundary',
     # input dtos
     'TextRecognitionInputDto',
     # output dtos
@@ -29,7 +29,7 @@ __all__ = [
 
 class TextOCRContainer(containers.DeclarativeContainer):
 
-    text_recognition_output_boundary = providers.Factory(TextRecognitionOutputBoundary)
+    text_recognition_output_boundary = providers.Dependency(instance_of=TextRecognitionOutputBoundary)
     text_recognition_uc = providers.Singleton(
         TextRecognition,
         output_boundary=text_recognition_output_boundary

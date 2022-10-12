@@ -6,7 +6,7 @@ setup(
     version='0.0.0',
     packages=find_packages(),
     install_requires=[
-        'pydantic'
+        'pydantic',
         'python-dotenv',
         'dependency_injector',
         'text_ocr',

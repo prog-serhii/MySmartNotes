@@ -1,26 +1,35 @@
 from dependency_injector import containers, providers
 
 from main.settings import Settings
-from text_ocr import TextOcrContainer
+from text_ocr import TextOCRContainer
 
 
 __all__ = [
-    'bootstrap_app'
+    # container
+    'ApplicationContainer',
+    # settings
+    'Settings'
 ]
+
+settings = Settings()
+
+
+def override_providers(providers_config):
+    ovveride_providers = {}
+
+    for provider_name, provider_info in providers_config.items():
+        provided_cls = provider_info['class']
+        provider_cls = getattr(providers, provider_info['provider_class'])
+        ovveride_providers[provider_name] = provider_cls(provided_cls)
+
+    return ovveride_providers
 
 
 class ApplicationContainer(containers.DeclarativeContainer):
 
-    config = providers.Configuration(pydantic_settings=[Settings()])
+    config = providers.Configuration()
+    config.from_pydantic(settings, exclude={'text_ocr_package_overriders'})
 
-    text_ocr = providers.Container(TextOcrContainer)
-
-
-def bootstrap_app():
-    """
-    This is bootstrap function independent from the context.
-    This should be used for Web, CLI, or worker context.
-    """
-
-    container = ApplicationContainer()
-    container.wire(modules=[__name__])
+    text_ocr_package = providers.Container(
+        TextOCRContainer, **override_providers(settings.text_ocr_package_overriders)
+    )
