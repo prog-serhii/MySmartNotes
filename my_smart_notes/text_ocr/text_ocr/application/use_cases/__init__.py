@@ -1,4 +1,4 @@
-from text_ocr.application.use_cases.text_recodnition import (
+from text_ocr.application.use_cases.text_recognition import (
     TextRecognition,
     TextRecognitionInputDto,
     TextRecognitionOutputBoundary,
