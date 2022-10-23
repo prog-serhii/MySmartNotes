@@ -1,9 +1,9 @@
 from neo4j import GraphDatabase, Driver
 
-from graph.application.repositories import GraphRepository
+from graph.application.graph_repository import AbstractGraphRepository
 
 
-class Neo4jGraphRepository(GraphRepository):
+class Neo4jGraphRepository(AbstractGraphRepository):
 
     def __init__(self, driver: Driver) -> None:
         self.driver = driver

@@ -1,4 +1,4 @@
-libs := foundation graph text_ocr main web_app
+libs := graph text_ocr main web_app
 
 define install_dev
 	pip install -e $(1)

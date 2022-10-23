@@ -7,7 +7,6 @@ setup(
     install_requires=[
         'fastapi',
         'main',
-        'foundation',
         'text_ocr',
     ],
 )

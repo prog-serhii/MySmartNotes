@@ -9,7 +9,6 @@ setup(
         'pydantic',
         'python-dotenv',
         'dependency_injector',
-        'text_ocr',
-        'foundation'
+        'text_ocr'
     ]
 )
