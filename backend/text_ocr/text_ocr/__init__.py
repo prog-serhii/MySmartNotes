@@ -34,6 +34,7 @@ __all__ = [
 
 class TextOCRContainer(containers.DeclarativeContainer):
 
+    command_bus = providers.Singleton
     text_recognition_output_boundary = providers.Dependency(instance_of=TextRecognitionOutputBoundary)
     image_procession_provider = providers.Factory(OpenCVAdapter)
     text_recognition_provider = providers.Factory(PyTesseractAdapter)

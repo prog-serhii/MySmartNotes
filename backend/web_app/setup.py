@@ -6,6 +6,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'fastapi',
+        'foundation',
         'main',
         'text_ocr',
     ],

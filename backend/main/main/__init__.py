@@ -1,6 +1,7 @@
 from dependency_injector import containers, providers
 
 from main.settings import Settings
+from foundation import CommandBus
 from text_ocr import TextOCRContainer
 
 
@@ -27,8 +28,9 @@ def override_providers(providers_config):
 
 class ApplicationContainer(containers.DeclarativeContainer):
 
-    config = providers.Configuration()
-    config.from_pydantic(settings, exclude={'text_ocr_package_overriders'})
+    config = providers.Configuration(pydantic_settings=[settings])
+    # config.from_pydantic(settings, exclude={'text_ocr_package_overriders'})
+    command_bus = providers.Singleton(CommandBus)
 
     text_ocr_package = providers.Container(
         TextOCRContainer, **override_providers(settings.text_ocr_package_overriders)
