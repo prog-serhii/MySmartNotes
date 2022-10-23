@@ -1,4 +1,0 @@
-fastapi
-dependency_injector
-uvicorn
-python-multipart
